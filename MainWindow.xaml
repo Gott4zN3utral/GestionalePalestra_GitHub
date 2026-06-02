@@ -1,0 +1,547 @@
+<Window x:Class="GestionalePalestra.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Gestionale Palestra"
+        Width="1360"
+        Height="920"
+        MinWidth="1180"
+        MinHeight="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="HeroCardStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{StaticResource HeroBrush}" />
+            <Setter Property="CornerRadius" Value="28" />
+            <Setter Property="Padding" Value="28" />
+            <Setter Property="BorderBrush" Value="#40FFFFFF" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="SurfaceCardStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+            <Setter Property="CornerRadius" Value="24" />
+            <Setter Property="Padding" Value="22" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="MetricCardStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="CornerRadius" Value="22" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,0,16,0" />
+        </Style>
+
+        <Style x:Key="PillStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="#1AFFFFFF" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="Margin" Value="0,0,10,10" />
+        </Style>
+
+        <Style x:Key="MiniStatStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="#1AFFFFFF" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="14" />
+            <Setter Property="BorderBrush" Value="#26FFFFFF" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <StaticResource ResourceKey="AppBackgroundBrush" />
+        </Grid.Background>
+
+        <Ellipse Width="520"
+                 Height="520"
+                 Margin="-180,-120,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Fill="#114FD1C5"
+                 IsHitTestVisible="False" />
+
+        <Ellipse Width="360"
+                 Height="360"
+                 Margin="0,0,-140,70"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Bottom"
+                 Fill="#1138BDF8"
+                 IsHitTestVisible="False" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Style="{StaticResource HeroCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="340" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Gestionale Palestra"
+                                       FontSize="42"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,10" />
+                            <TextBlock Text="Una dashboard WPF con SQLite per gestire iscritti, abbonamenti, pagamenti e presenze in un unico flusso operativo."
+                                       FontSize="16"
+                                       Foreground="{StaticResource MutedBrush}"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="760"
+                                       Margin="0,0,0,20" />
+
+                            <WrapPanel Margin="0,0,0,6">
+                                <Border Style="{StaticResource PillStyle}">
+                                    <TextBlock Text="Portfolio ready" />
+                                </Border>
+                                <Border Style="{StaticResource PillStyle}">
+                                    <TextBlock Text="SQLite auto-seed" />
+                                </Border>
+                                <Border Style="{StaticResource PillStyle}">
+                                    <TextBlock Text="MVVM leggero" />
+                                </Border>
+                                <Border Style="{StaticResource PillStyle}">
+                                    <TextBlock Text=".NET 10 / WPF" />
+                                </Border>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" Style="{StaticResource MiniStatStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Stato progetto"
+                                           FontSize="14"
+                                           Foreground="{StaticResource MutedBrush}" />
+                                <TextBlock Text="Demo pronta per GitHub"
+                                           FontSize="22"
+                                           FontWeight="SemiBold"
+                                           Margin="0,2,0,10" />
+                                <TextBlock Text="Al primo avvio carica dati demo così la UI non appare vuota nello screenshot del portfolio."
+                                           Foreground="{StaticResource MutedBrush}"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,12" />
+
+                                <StackPanel>
+                                    <Border Background="#1DFFFFFF" CornerRadius="14" Padding="12" Margin="0,0,0,8">
+                                        <StackPanel>
+                                            <TextBlock Text="Iscritti" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                            <TextBlock Text="{Binding TotalMembers}" FontSize="24" FontWeight="Bold" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="#1DFFFFFF" CornerRadius="14" Padding="12" Margin="0,0,0,8">
+                                        <StackPanel>
+                                            <TextBlock Text="Abbonamenti attivi" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                            <TextBlock Text="{Binding ActiveMemberships}" FontSize="24" FontWeight="Bold" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="#1DFFFFFF" CornerRadius="14" Padding="12">
+                                        <StackPanel>
+                                            <TextBlock Text="Incasso mese" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                            <TextBlock Text="{Binding MonthlyRevenue, StringFormat=€ {0:N2}}" FontSize="24" FontWeight="Bold" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1"
+                        Background="{StaticResource SurfaceBrush}"
+                        CornerRadius="24"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <TabControl>
+                        <TabItem Header="Dashboard">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <UniformGrid Columns="5" Margin="0,0,0,16">
+                                    <Border Style="{StaticResource MetricCardStyle}">
+                                        <StackPanel>
+                                            <TextBlock Text="Iscritti totali" Foreground="{StaticResource MutedBrush}" />
+                                            <TextBlock Text="{Binding TotalMembers}" FontSize="34" FontWeight="Bold" Margin="0,4,0,8" />
+                                            <TextBlock Text="Anagrafica completa del gestionale." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Style="{StaticResource MetricCardStyle}">
+                                        <StackPanel>
+                                            <TextBlock Text="Abbonamenti attivi" Foreground="{StaticResource MutedBrush}" />
+                                            <TextBlock Text="{Binding ActiveMemberships}" FontSize="34" FontWeight="Bold" Margin="0,4,0,8" />
+                                            <TextBlock Text="Copertura corrente degli iscritti." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Style="{StaticResource MetricCardStyle}">
+                                        <StackPanel>
+                                            <TextBlock Text="Scadenze 14 giorni" Foreground="{StaticResource MutedBrush}" />
+                                            <TextBlock Text="{Binding ExpiringSoonCount}" FontSize="34" FontWeight="Bold" Margin="0,4,0,8" />
+                                            <TextBlock Text="Abbonamenti da rinnovare a breve." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="{StaticResource SurfaceAltBrush}" CornerRadius="22" Padding="20" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Incasso mese" Foreground="{StaticResource MutedBrush}" />
+                                            <TextBlock Text="{Binding MonthlyRevenue, StringFormat=€ {0:N2}}" FontSize="34" FontWeight="Bold" Margin="0,4,0,8" />
+                                            <TextBlock Text="Sintesi economica del mese corrente." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="{StaticResource SurfaceAltBrush}" CornerRadius="22" Padding="20" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Incasso totale" Foreground="{StaticResource MutedBrush}" />
+                                            <TextBlock Text="{Binding TotalRevenue, StringFormat=€ {0:N2}}" FontSize="34" FontWeight="Bold" Margin="0,4,0,8" />
+                                            <TextBlock Text="Totale incassato dalla palestra nel tempo." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+                                </UniformGrid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,16,0">
+                                        <StackPanel>
+                                            <TextBlock Text="Abbonamenti in scadenza"
+                                                       FontSize="20"
+                                                       FontWeight="Bold"
+                                                       Margin="0,0,0,12" />
+                                            <DataGrid ItemsSource="{Binding ExpiringMemberships}"
+                                                      SelectedItem="{Binding SelectedExpiringMembership}"
+                                                      Height="440">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                    <DataGridTextColumn Header="Piano" Binding="{Binding PlanName}" Width="*" />
+                                                    <DataGridTextColumn Header="Scadenza" Binding="{Binding EndDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                    <DataGridTextColumn Header="Stato" Binding="{Binding Status}" Width="*" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1">
+                                        <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,0,16">
+                                            <StackPanel>
+                                                <TextBlock Text="Ultimi pagamenti"
+                                                           FontSize="20"
+                                                           FontWeight="Bold"
+                                                           Margin="0,0,0,6" />
+                                                <TextBlock Text="{Binding LatestPaymentSummary}"
+                                                           Foreground="{StaticResource MutedBrush}"
+                                                           TextWrapping="Wrap"
+                                                           Margin="0,0,0,12" />
+                                                <DataGrid ItemsSource="{Binding RecentPayments}"
+                                                          Height="210">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                        <DataGridTextColumn Header="Importo" Binding="{Binding Amount, StringFormat=€ {0:N2}}" Width="*" />
+                                                        <DataGridTextColumn Header="Data" Binding="{Binding PaymentDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,0,16">
+                                            <StackPanel>
+                                                <TextBlock Text="Ultimi check-in"
+                                                           FontSize="20"
+                                                           FontWeight="Bold"
+                                                           Margin="0,0,0,6" />
+                                                <TextBlock Text="{Binding LatestAttendanceSummary}"
+                                                           Foreground="{StaticResource MutedBrush}"
+                                                           TextWrapping="Wrap"
+                                                           Margin="0,0,0,12" />
+                                                <DataGrid ItemsSource="{Binding RecentAttendances}"
+                                                          Height="180">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                        <DataGridTextColumn Header="Ingresso" Binding="{Binding CheckInTime, StringFormat=dd/MM/yyyy HH:mm}" Width="*" />
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Style="{StaticResource SurfaceCardStyle}">
+                                            <StackPanel>
+                                                <TextBlock Text="Per il portfolio"
+                                                           FontSize="20"
+                                                           FontWeight="Bold"
+                                                           Margin="0,0,0,12" />
+                                                <TextBlock Text="La UI mostra una struttura completa da gestionale reale e i dati demo vengono caricati automaticamente al primo avvio."
+                                                           Foreground="{StaticResource MutedBrush}"
+                                                           TextWrapping="Wrap"
+                                                           Margin="0,0,0,12" />
+                                                <TextBlock Text="• Dashboard con KPI e scadenze" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6" />
+                                                <TextBlock Text="• CRUD iscritti e abbonamenti" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6" />
+                                                <TextBlock Text="• Pagamenti e check-in presenze" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6" />
+                                                <TextBlock Text="• SQLite creato automaticamente" Foreground="{StaticResource TextBrush}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Iscritti">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="360" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,16,0">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding MemberFormTitle}"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <TextBlock Text="Nome completo" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MemberFullName, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="Telefono" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MemberPhone, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="Email" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MemberEmail, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="Data iscrizione" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MemberJoinDateText, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button Command="{Binding ToggleMemberActiveCommand}"
+                                                Margin="0,2,0,16"
+                                                Padding="14,10"
+                                                Background="{StaticResource SurfaceAltBrush}"
+                                                BorderBrush="{StaticResource BorderBrush}"
+                                                Foreground="{StaticResource TextBrush}"
+                                                HorizontalAlignment="Left"
+                                                MinWidth="140">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="ButtonBorder"
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="10"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <Ellipse x:Name="StatusDot"
+                                                                     Width="12"
+                                                                     Height="12"
+                                                                     Fill="{StaticResource AccentBrush}"
+                                                                     Margin="0,0,10,0" />
+                                                            <TextBlock Text="{Binding MemberActiveLabel}"
+                                                                       Foreground="{TemplateBinding Foreground}"
+                                                                       VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="{StaticResource Accent2Brush}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="ButtonBorder" Property="Background" Value="#FF133452" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+
+                                        <WrapPanel>
+                                            <Button Content="Salva" Command="{Binding SaveMemberCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+                                            <Button Content="Nuovo" Command="{Binding ResetMemberFormCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+                                            <Button Content="Elimina" Command="{Binding DeleteMemberCommand}" Style="{StaticResource DangerButtonStyle}" />
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Style="{StaticResource SurfaceCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="Anagrafica iscritti"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <DataGrid ItemsSource="{Binding Members}"
+                                                  SelectedItem="{Binding SelectedMember}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60" />
+                                                <DataGridTextColumn Header="Nome" Binding="{Binding FullName}" Width="2*" />
+                                                <DataGridTextColumn Header="Telefono" Binding="{Binding Phone}" Width="*" />
+                                                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*" />
+                                                <DataGridTextColumn Header="Iscrizione" Binding="{Binding JoinDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                <DataGridCheckBoxColumn Header="Attivo" Binding="{Binding IsActive}" Width="90" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Abbonamenti">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="360" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,16,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Nuovo abbonamento"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <TextBlock Text="Iscritto" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <ComboBox ItemsSource="{Binding Members}"
+                                                  SelectedItem="{Binding SelectedMembershipMember}"
+                                                  DisplayMemberPath="FullName" />
+                                        <TextBlock Text="Piano" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <ComboBox ItemsSource="{Binding Plans}"
+                                                  SelectedItem="{Binding SelectedPlan}"
+                                                  DisplayMemberPath="Name" />
+                                        <TextBlock Text="Data inizio" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MembershipStartDateText, UpdateSourceTrigger=PropertyChanged}" />
+                                        <CheckBox Content="Pagato" IsChecked="{Binding MembershipIsPaid}" Margin="0,2,0,14" />
+                                        <TextBlock Text="Note" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding MembershipNotes, UpdateSourceTrigger=PropertyChanged}"
+                                                 AcceptsReturn="True"
+                                                 Height="84"
+                                                 TextWrapping="Wrap" />
+                                        <Button Content="Crea abbonamento"
+                                                Command="{Binding AddMembershipCommand}"
+                                                Style="{StaticResource PrimaryButtonStyle}" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Style="{StaticResource SurfaceCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="Storico abbonamenti"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <DataGrid ItemsSource="{Binding Memberships}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                <DataGridTextColumn Header="Piano" Binding="{Binding PlanName}" Width="*" />
+                                                <DataGridTextColumn Header="Inizio" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                <DataGridTextColumn Header="Fine" Binding="{Binding EndDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                <DataGridTextColumn Header="Pagamento" Binding="{Binding PaymentLabel}" Width="*" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Pagamenti">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="360" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,16,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Nuovo pagamento"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <TextBlock Text="Iscritto" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <ComboBox ItemsSource="{Binding Members}"
+                                                  SelectedItem="{Binding SelectedPaymentMember}"
+                                                  DisplayMemberPath="FullName" />
+                                        <TextBlock Text="Importo" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding PaymentAmountText, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="Metodo" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding PaymentMethod, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="Note" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <TextBox Text="{Binding PaymentNote, UpdateSourceTrigger=PropertyChanged}"
+                                                 AcceptsReturn="True"
+                                                 Height="84"
+                                                 TextWrapping="Wrap" />
+                                        <Button Content="Registra pagamento"
+                                                Command="{Binding AddPaymentCommand}"
+                                                Style="{StaticResource PrimaryButtonStyle}" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Style="{StaticResource SurfaceCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="Pagamenti registrati"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <DataGrid ItemsSource="{Binding Payments}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                <DataGridTextColumn Header="Importo" Binding="{Binding Amount, StringFormat=€ {0:N2}}" Width="*" />
+                                                <DataGridTextColumn Header="Data" Binding="{Binding PaymentDate, StringFormat=dd/MM/yyyy}" Width="*" />
+                                                <DataGridTextColumn Header="Metodo" Binding="{Binding Method}" Width="*" />
+                                                <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="2*" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Presenze">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="360" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Style="{StaticResource SurfaceCardStyle}" Margin="0,0,16,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Registra ingresso"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <TextBlock Text="Iscritto" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,0,0,4" />
+                                        <ComboBox ItemsSource="{Binding Members}"
+                                                  SelectedItem="{Binding SelectedAttendanceMember}"
+                                                  DisplayMemberPath="FullName" />
+                                        <Button Content="Segna presenza"
+                                                Command="{Binding AddAttendanceCommand}"
+                                                Style="{StaticResource PrimaryButtonStyle}"
+                                                Margin="0,8,0,16" />
+                                        <TextBlock Text="Suggerimento"
+                                                   Foreground="{StaticResource MutedBrush}"
+                                                   Margin="0,0,0,6" />
+                                        <TextBlock Text="Questa sezione completa il flusso tipico di un gestionale palestra: check-in giornaliero degli iscritti."
+                                                   Foreground="{StaticResource TextBrush}"
+                                                   TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Style="{StaticResource SurfaceCardStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="Registro presenze"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Margin="0,0,0,12" />
+                                        <DataGrid ItemsSource="{Binding Attendances}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Iscritto" Binding="{Binding MemberName}" Width="2*" />
+                                                <DataGridTextColumn Header="Ingresso" Binding="{Binding CheckInTime, StringFormat=dd/MM/yyyy HH:mm}" Width="*" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
