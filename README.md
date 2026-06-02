@@ -4,6 +4,15 @@ Gestionale desktop in WPF per la gestione di una palestra, pensato come progetto
 
 L'obiettivo del progetto e mostrare una UI moderna, una struttura ordinata in MVVM e un flusso realistico per anagrafiche, abbonamenti, pagamenti e presenze.
 
+## ⚠️ Primo avvio
+
+Se al primo avvio compare un errore SQLite, avvia il programma come amministratore:
+1. Cerca **Gestionale Palestra** nel menu Start
+2. Tasto destro → **Esegui come amministratore**
+
+Il database viene creato automaticamente nella cartella:
+`C:\Users\TuoNome\AppData\Local\GestionalePalestra\`
+
 ## Funzionalita
 
 - gestione iscritti con form di inserimento, modifica ed eliminazione
